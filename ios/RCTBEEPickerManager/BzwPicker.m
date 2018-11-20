@@ -146,159 +146,274 @@
 }
 
 #pragma mark Picker Delegate Methods
-
-//返回当前行的内容,此处是将数组中数值添加到滚动的那个显示栏上
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
+- (NSString *)getTitleForRow: (NSInteger)row forComponent: (NSInteger)component {
     if (_Correlation) {
-        
+
         if (component == 0) {
-            
+
             return [NSString stringWithFormat:@"%@",[self.provinceArray objectAtIndex:row]];
-            
+
         } else if (component == 1) {
-            
+
             return [NSString stringWithFormat:@"%@",[self.cityArray objectAtIndex:row]];
         } else {
-            
+
             return [NSString stringWithFormat:@"%@",[self.townArray objectAtIndex:row]];
         }
     }else{
-        
+
         if (_noArryElementBool) {
-            
+
             return [NSString stringWithFormat:@"%@",[self.noCorreArry objectAtIndex:row]];
-            
+
         }else{
             return [NSString stringWithFormat:@"%@",[[self.noCorreArry objectAtIndex:component] objectAtIndex:row]];
         }
     }
-    
 }
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    
-    if (_Correlation) {
-        if ([_numberCorrela isEqualToString:@"three"]) {
-            
-            _lineWith=SCREEN_WIDTH-2*linSpace;
-            
-            if (self.weightArry.count>=3) {
-                NSString *onestr=[NSString stringWithFormat:@"%@",[self.weightArry firstObject]];
-                NSString *twostr=[NSString stringWithFormat:@"%@",self.weightArry[1]];
-                NSString *threestr=[NSString stringWithFormat:@"%@",self.weightArry[2]];
-                double totalweight=onestr.doubleValue+twostr.doubleValue+threestr.doubleValue;
-                if (component==0) {
-                    return _lineWith*onestr.doubleValue/totalweight;
-                }else if (component==1){
-                    return _lineWith*twostr.doubleValue/totalweight;
-                }else{
-                    return _lineWith*threestr.doubleValue/totalweight;
-                }
-            }else{
-                if (self.weightArry.count>0) {
-                    NSInteger totalNum=self.weightArry.count;
-                    double totalweight=0;
-                    
-                    for (NSInteger i=0; i<self.weightArry.count; i++) {
-                        NSString *str=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:i]];
-                        totalweight=totalweight+str.doubleValue;
-                    }
-                    if (component>totalNum-1) {
-                        NSString *str=[NSString stringWithFormat:@"%f",totalweight+3-totalNum];
-                        return _lineWith/str.doubleValue;;
-                        
+//返回当前行的内容,此处是将数组中数值添加到滚动的那个显示栏上
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [self getTitleForRow:row forComponent:component];
+
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
+       if (_Correlation) {
+            if ([_numberCorrela isEqualToString:@"three"]) {
+
+                _lineWith=SCREEN_WIDTH-2*linSpace;
+
+                if (self.weightArry.count>=3) {
+                    NSString *onestr=[NSString stringWithFormat:@"%@",[self.weightArry firstObject]];
+                    NSString *twostr=[NSString stringWithFormat:@"%@",self.weightArry[1]];
+                    NSString *threestr=[NSString stringWithFormat:@"%@",self.weightArry[2]];
+                    double totalweight=onestr.doubleValue+twostr.doubleValue+threestr.doubleValue;
+                    if (component==0) {
+                        return _lineWith*onestr.doubleValue/totalweight;
+                    }else if (component==1){
+                        return _lineWith*twostr.doubleValue/totalweight;
                     }else{
-                        
-                        NSString *str=[NSString stringWithFormat:@"%f",totalweight+3-totalNum];
-                        
-                        return  _lineWith*[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:component]].doubleValue/str.doubleValue;
-                        
+                        return _lineWith*threestr.doubleValue/totalweight;
                     }
                 }else{
-                    return _lineWith/3;
-                }
-            }
-        }
-        else{
-            
-            _lineWith=SCREEN_WIDTH-linSpace;
-            if (self.weightArry.count>=2) {
-                NSString *onestr=[NSString stringWithFormat:@"%@",[self.weightArry firstObject]];
-                NSString *twostr=[NSString stringWithFormat:@"%@",self.weightArry[1]];
-                
-                double totalweight=onestr.doubleValue+twostr.doubleValue;
-                if (component==0) {
-                    return _lineWith*onestr.doubleValue/totalweight;
-                }else{
-                    return _lineWith*twostr.doubleValue/totalweight;
+                    if (self.weightArry.count>0) {
+                        NSInteger totalNum=self.weightArry.count;
+                        double totalweight=0;
+
+                        for (NSInteger i=0; i<self.weightArry.count; i++) {
+                            NSString *str=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:i]];
+                            totalweight=totalweight+str.doubleValue;
+                        }
+                        if (component>totalNum-1) {
+                            NSString *str=[NSString stringWithFormat:@"%f",totalweight+3-totalNum];
+                            return _lineWith/str.doubleValue;;
+
+                        }else{
+
+                            NSString *str=[NSString stringWithFormat:@"%f",totalweight+3-totalNum];
+
+                            return  _lineWith*[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:component]].doubleValue/str.doubleValue;
+
+                        }
+                    }else{
+                        return _lineWith/3;
+                    }
                 }
             }
             else{
-                if (self.weightArry.count>0) {
-                    double twonum=[NSString stringWithFormat:@"%@",[self.weightArry firstObject]].doubleValue;
+
+                _lineWith=50;
+                if (self.componentWidthsArry.count>=2) {
+                    NSString *onestr=[NSString stringWithFormat:@"%@",[self.componentWidthsArry firstObject]];
+                    NSString *twostr=[NSString stringWithFormat:@"%@",self.componentWidthsArry[1]];
                     if (component==0) {
-                        
-                        NSString *str=[NSString stringWithFormat:@"%f",twonum+1];
-                        return _lineWith*twonum/str.doubleValue;
-                        
+                        return _lineWith*onestr.doubleValue;
                     }else{
-                        NSString *str=[NSString stringWithFormat:@"%f",twonum+1];
-                        return _lineWith/str.doubleValue;
-                        
+                        return _lineWith*twostr.doubleValue;
                     }
                 }
                 else{
-                    return _lineWith/2;
+                    if (self.componentWidthsArry.count>0) {
+                        double twonum=[NSString stringWithFormat:@"%@",[self.componentWidthsArry firstObject]].doubleValue;
+                        return _lineWith*twonum;
+                    }
+                    else{
+                        return _lineWith;
+                    }
                 }
             }
-        }
-    }else{
-        if (_noArryElementBool) {
-            //表示一个数组 特殊情况
-            return SCREEN_WIDTH;
         }else{
-            
-            _lineWith=(SCREEN_WIDTH-linSpace*(self.dataDry.count-1));
-            if (self.dataDry.count == 2) {
-                _lineWith =  _lineWith - 150;
-            }
-            
-            if (self.weightArry.count>=self.dataDry.count) {
-                
-                double totalweight=0;
-                
-                for (NSInteger i=0; i<self.dataDry.count; i++) {
-                    NSString *str=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:i]];
-                    totalweight=totalweight+str.doubleValue;
+            if (_noArryElementBool) {
+                //表示一个数组 特殊情况
+                return SCREEN_WIDTH;
+            }else{
+
+                _lineWith=(SCREEN_WIDTH-linSpace*(self.dataDry.count-1));
+                if (self.dataDry.count == 2) {
+                    _lineWith =  _lineWith - 150;
                 }
-                NSString *comStr=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:component]];
-                
-                return _lineWith*comStr.doubleValue/totalweight;
-            }else
-            {
-                if (self.weightArry.count>0) {
-                    NSInteger totalNum=self.weightArry.count;
+
+                if (self.weightArry.count>=self.dataDry.count) {
+
                     double totalweight=0;
-                    for (NSInteger i=0; i<self.weightArry.count; i++) {
+
+                    for (NSInteger i=0; i<self.dataDry.count; i++) {
                         NSString *str=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:i]];
                         totalweight=totalweight+str.doubleValue;
                     }
-                    if (component>totalNum-1) {
-                        
-                        NSString *str=[NSString stringWithFormat:@"%f",totalweight+self.dataDry.count-totalNum];
-                        return _lineWith/str.doubleValue;
+                    NSString *comStr=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:component]];
+
+                    return _lineWith*comStr.doubleValue/totalweight;
+                }else
+                {
+                    if (self.weightArry.count>0) {
+                        NSInteger totalNum=self.weightArry.count;
+                        double totalweight=0;
+                        for (NSInteger i=0; i<self.weightArry.count; i++) {
+                            NSString *str=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:i]];
+                            totalweight=totalweight+str.doubleValue;
+                        }
+                        if (component>totalNum-1) {
+
+                            NSString *str=[NSString stringWithFormat:@"%f",totalweight+self.dataDry.count-totalNum];
+                            return _lineWith/str.doubleValue;
+                        }else{
+
+                            NSString *str=[NSString stringWithFormat:@"%f",totalweight+self.dataDry.count-totalNum];
+                            return _lineWith*[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:component]].doubleValue/str.doubleValue;
+                        }
                     }else{
-                        
-                        NSString *str=[NSString stringWithFormat:@"%f",totalweight+self.dataDry.count-totalNum];
-                        return _lineWith*[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:component]].doubleValue/str.doubleValue;
+                        return _lineWith/self.dataDry.count;
                     }
-                }else{
-                    return _lineWith/self.dataDry.count;
                 }
             }
         }
-    }
 }
+//- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponents:(NSInteger)component {
+//
+//    if (_Correlation) {
+//        if ([_numberCorrela isEqualToString:@"three"]) {
+//
+//            _lineWith=SCREEN_WIDTH-2*linSpace;
+//
+//            if (self.weightArry.count>=3) {
+//                NSString *onestr=[NSString stringWithFormat:@"%@",[self.weightArry firstObject]];
+//                NSString *twostr=[NSString stringWithFormat:@"%@",self.weightArry[1]];
+//                NSString *threestr=[NSString stringWithFormat:@"%@",self.weightArry[2]];
+//                double totalweight=onestr.doubleValue+twostr.doubleValue+threestr.doubleValue;
+//                if (component==0) {
+//                    return _lineWith*onestr.doubleValue/totalweight;
+//                }else if (component==1){
+//                    return _lineWith*twostr.doubleValue/totalweight;
+//                }else{
+//                    return _lineWith*threestr.doubleValue/totalweight;
+//                }
+//            }else{
+//                if (self.weightArry.count>0) {
+//                    NSInteger totalNum=self.weightArry.count;
+//                    double totalweight=0;
+//
+//                    for (NSInteger i=0; i<self.weightArry.count; i++) {
+//                        NSString *str=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:i]];
+//                        totalweight=totalweight+str.doubleValue;
+//                    }
+//                    if (component>totalNum-1) {
+//                        NSString *str=[NSString stringWithFormat:@"%f",totalweight+3-totalNum];
+//                        return _lineWith/str.doubleValue;;
+//
+//                    }else{
+//
+//                        NSString *str=[NSString stringWithFormat:@"%f",totalweight+3-totalNum];
+//
+//                        return  _lineWith*[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:component]].doubleValue/str.doubleValue;
+//
+//                    }
+//                }else{
+//                    return _lineWith/3;
+//                }
+//            }
+//        }
+//        else{
+//
+//            _lineWith=SCREEN_WIDTH-linSpace;
+//            if (self.weightArry.count>=2) {
+//                NSString *onestr=[NSString stringWithFormat:@"%@",[self.weightArry firstObject]];
+//                NSString *twostr=[NSString stringWithFormat:@"%@",self.weightArry[1]];
+//
+//                double totalweight=onestr.doubleValue+twostr.doubleValue;
+//                if (component==0) {
+//                    return _lineWith*onestr.doubleValue/totalweight;
+//                }else{
+//                    return _lineWith*twostr.doubleValue/totalweight;
+//                }
+//            }
+//            else{
+//                if (self.weightArry.count>0) {
+//                    double twonum=[NSString stringWithFormat:@"%@",[self.weightArry firstObject]].doubleValue;
+//                    if (component==0) {
+//
+//                        NSString *str=[NSString stringWithFormat:@"%f",twonum+1];
+//                        return _lineWith*twonum/str.doubleValue;
+//
+//                    }else{
+//                        NSString *str=[NSString stringWithFormat:@"%f",twonum+1];
+//                        return _lineWith/str.doubleValue;
+//
+//                    }
+//                }
+//                else{
+//                    return _lineWith/2;
+//                }
+//            }
+//        }
+//    }else{
+//        if (_noArryElementBool) {
+//            //表示一个数组 特殊情况
+//            return SCREEN_WIDTH;
+//        }else{
+//
+//            _lineWith=(SCREEN_WIDTH-linSpace*(self.dataDry.count-1));
+//            if (self.dataDry.count == 2) {
+//                _lineWith =  _lineWith - 150;
+//            }
+//
+//            if (self.weightArry.count>=self.dataDry.count) {
+//
+//                double totalweight=0;
+//
+//                for (NSInteger i=0; i<self.dataDry.count; i++) {
+//                    NSString *str=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:i]];
+//                    totalweight=totalweight+str.doubleValue;
+//                }
+//                NSString *comStr=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:component]];
+//
+//                return _lineWith*comStr.doubleValue/totalweight;
+//            }else
+//            {
+//                if (self.weightArry.count>0) {
+//                    NSInteger totalNum=self.weightArry.count;
+//                    double totalweight=0;
+//                    for (NSInteger i=0; i<self.weightArry.count; i++) {
+//                        NSString *str=[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:i]];
+//                        totalweight=totalweight+str.doubleValue;
+//                    }
+//                    if (component>totalNum-1) {
+//
+//                        NSString *str=[NSString stringWithFormat:@"%f",totalweight+self.dataDry.count-totalNum];
+//                        return _lineWith/str.doubleValue;
+//                    }else{
+//
+//                        NSString *str=[NSString stringWithFormat:@"%f",totalweight+self.dataDry.count-totalNum];
+//                        return _lineWith*[NSString stringWithFormat:@"%@",[self.weightArry objectAtIndex:component]].doubleValue/str.doubleValue;
+//                    }
+//                }else{
+//                    return _lineWith/self.dataDry.count;
+//                }
+//            }
+//        }
+//    }
+//}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
@@ -938,23 +1053,21 @@
     return arry;
 }
 
--(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    
-    UILabel *lbl = (UILabel *)view;
-    
-    if (lbl == nil) {
-        lbl = [[UILabel alloc]init];
-        lbl.font = [UIFont fontWithName:_pickerFontFamily size:[_pickerFontSize integerValue]];
-        lbl.textColor = [self colorWith:_pickerFontColor];
-        lbl.textAlignment = UITextAlignmentCenter;
-    }
-    
-    //重新加载lbl的文字内容
-    lbl.text = [self pickerView:pickerView titleForRow:row forComponent:component];
-    
-    return lbl;
-    
-}
+//-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+//
+//    UILabel *lbl = (UILabel *)view;
+//
+//    if (lbl == nil) {
+//        lbl = [[UILabel alloc]init];
+//        lbl.font = [UIFont fontWithName:_pickerFontFamily size:[_pickerFontSize integerValue]];
+//        lbl.textColor = [self colorWith:_pickerFontColor];
+//        lbl.textAlignment = NSTextAlignmentCenter;
+//    }
+//    //重新加载lbl的文字内容
+//    lbl.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+//    return lbl;
+//
+//}
 
 - (BOOL)anySubViewScrolling:(UIView *)view{
     if ([view isKindOfClass:[UIScrollView class]]) {

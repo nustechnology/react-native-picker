@@ -20,6 +20,7 @@ const options = {
     pickerBg: [196, 199, 206, 1],
     pickerRowHeight: 24,
     wheelFlex: [1, 1, 1],
+    componentWidths: [2 , 1],
     pickerData: [],
     selectedValue: [],
     onPickerConfirm(){},

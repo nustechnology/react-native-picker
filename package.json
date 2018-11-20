@@ -1,17 +1,48 @@
 {
-  "name": "react-native-picker",
-  "version": "4.3.7",
+  "_args": [
+    [
+      "git+https://github.com/nustechnology/react-native-picker.git",
+      "/Volumes/Data/Working/NUSTechnology/Projects/MyID/MyID_ReactNative_New/MyID"
+    ]
+  ],
+  "_from": "git+https://github.com/nustechnology/react-native-picker.git",
+  "_id": "react-native-picker@git+https://github.com/nustechnology/react-native-picker.git#5f75c9e7e36a0acdc1dbaa1ac126b380d2b8be20",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/react-native-picker",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+https://github.com/nustechnology/react-native-picker.git",
+    "rawSpec": "git+https://github.com/nustechnology/react-native-picker.git",
+    "saveSpec": "git+https://github.com/nustechnology/react-native-picker.git",
+    "fetchSpec": "https://github.com/nustechnology/react-native-picker.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/nustechnology/react-native-picker.git#5f75c9e7e36a0acdc1dbaa1ac126b380d2b8be20",
+  "_spec": "git+https://github.com/nustechnology/react-native-picker.git",
+  "_where": "/Volumes/Data/Working/NUSTechnology/Projects/MyID/MyID_ReactNative_New/MyID",
+  "author": {
+    "name": "zooble"
+  },
+  "bugs": {
+    "url": "https://github.com/beefe/react-native-picker/issues"
+  },
   "description": "A Native Picker with high performance.",
+  "homepage": "https://github.com/beefe/react-native-picker",
+  "license": "MIT",
   "main": "index.js",
-  "types": "index.d.ts",
+  "name": "react-native-picker",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/beefe/react-native-picker.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:beefe/react-native-picker.git"
-  },
-  "author": "zooble",
-  "license": "MIT",
-  "homepage": "https://github.com/beefe/react-native-picker"
+  "types": "index.d.ts",
+  "version": "4.3.7"
 }

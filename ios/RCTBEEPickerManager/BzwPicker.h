@@ -66,6 +66,8 @@ typedef void(^backBolock)(NSDictionary * );
 
 @property(strong,nonatomic)NSArray *weightArry;
 
+@property(strong,nonatomic)NSArray *componentWidthsArry;
+
 @property(assign,nonatomic)CGFloat lineWith;
 //创建一个下角标记录是第几行 来一进来判断第一行被选中 当进来的是关联两行的逻辑的时候 或者三行关联的时候取第二行做记录
 

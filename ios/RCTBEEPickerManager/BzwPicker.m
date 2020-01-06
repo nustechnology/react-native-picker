@@ -178,6 +178,25 @@
 
 }
 
+
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+
+    UILabel *lbl = (UILabel *)view;
+
+    if (lbl == nil) {
+        lbl = [[UILabel alloc]init];
+        CGFloat fontSize = _pickerFontSize == nil || [_pickerFontSize isEqualToString: @"(null)"] ? 16 : [_pickerFontSize integerValue];
+        lbl.font = _pickerFontFamily == nil || [_pickerFontFamily isEqualToString:@"(null)"] ? [UIFont systemFontOfSize:fontSize] :[UIFont fontWithName:_pickerFontFamily size:fontSize];
+        lbl.textColor = [self colorWith:_pickerFontColor];
+        lbl.textAlignment = NSTextAlignmentCenter;
+    }
+    //重新加载lbl的文字内容
+    lbl.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+    return lbl;
+
+}
+
+
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
        if (_Correlation) {
             if ([_numberCorrela isEqualToString:@"three"]) {
@@ -582,7 +601,7 @@
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
 {
-    return self.pickerRowHeight.integerValue;
+    return self.pickerRowHeight == nil ? 60 : self.pickerRowHeight.integerValue;
 }
 
 //判断进来的类型是那种
@@ -1052,22 +1071,6 @@
     }
     return arry;
 }
-
-//-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-//
-//    UILabel *lbl = (UILabel *)view;
-//
-//    if (lbl == nil) {
-//        lbl = [[UILabel alloc]init];
-//        lbl.font = [UIFont fontWithName:_pickerFontFamily size:[_pickerFontSize integerValue]];
-//        lbl.textColor = [self colorWith:_pickerFontColor];
-//        lbl.textAlignment = NSTextAlignmentCenter;
-//    }
-//    //重新加载lbl的文字内容
-//    lbl.text = [self pickerView:pickerView titleForRow:row forComponent:component];
-//    return lbl;
-//
-//}
 
 - (BOOL)anySubViewScrolling:(UIView *)view{
     if ([view isKindOfClass:[UIScrollView class]]) {
